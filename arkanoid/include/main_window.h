@@ -1,10 +1,11 @@
 #pragma once
-
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
 #include <QMainWindow>
 #include <QWidget>
+
+#include "graphic_object.h"
 
 namespace Ui
 {
@@ -21,6 +22,8 @@ public:
 
 private:
     Ui::MainWindow* ui = nullptr;
+    Concept::GraphicObjects items;
+
     void setup_ui();
 };
 

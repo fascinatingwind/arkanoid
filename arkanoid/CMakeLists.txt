@@ -14,11 +14,18 @@ set(SOURCE_FILES ${SOURCE_FILES}
 set(HEADER_FILES ${HEADER_FILES}
     "include/qcustomplot.h"
     "include/main_window.h"
+    "include/functions_draw.h"
+    "include/qrect_draw.h"
+    "include/graphic_object.h"
+    "include/functions_select_test.h"
+    "include/qrect_select_test.h"
 )
 
 set(SOURCE_FILES ${SOURCE_FILES}
     "src/qcustomplot.cpp"
     "src/main_window.cpp"
+    "src/qrect_draw.cpp"
+    "src/qrect_select_test.cpp"
 )
 
 set(UI_FILES
