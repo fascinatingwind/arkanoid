@@ -7,19 +7,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include_directories("include")
 link_directories("src")
 
-set(SOURCE_FILES
-    "main.cpp"
+set(SOURCE_FILES ${SOURCE_FILES}
+    "src/main.cpp"
 )
 
-set(HEADER_FILES
+set(HEADER_FILES ${HEADER_FILES}
+    "include/qcustomplot.h"
+    "include/main_window.h"
 )
 
 set(SOURCE_FILES ${SOURCE_FILES}
+    "src/qcustomplot.cpp"
+    "src/main_window.cpp"
 )
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets REQUIRED)
+set(UI_FILES
+    "ui/main_window.ui"
+)
 
+find_package(QT NAMES Qt6 COMPONENTS Core Gui Widgets PrintSupport REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets PrintSupport REQUIRED)
+
+set(CMAKE_AUTOUIC_SEARCH_PATHS "ui")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -30,12 +39,13 @@ if ("${QT6_DIR_CMAKE_PREFIX_PATH}" STREQUAL "")
 endif ()
 set(CMAKE_PREFIX_PATH ${QT6_DIR_CMAKE_PREFIX_PATH})
 
+# qt_wrap_ui(UI_HEADERS ${UI_FILES})
+# CMAKE_AUTOUIC_SEARCH_PATHS("ui")
 # Qt dir
 get_target_property(QMAKE_EXECUTABLE Qt${QT_VERSION_MAJOR}::qmake IMPORTED_LOCATION)
 get_filename_component(QT_BIN_DIR "${QMAKE_EXECUTABLE}" DIRECTORY)
 
 # deployqt
-
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${QT_BIN_DIR}")
 set(PLATFORM_DEPLOYQT_EXECUTABLE ${WINDEPLOYQT_EXECUTABLE})
 
@@ -47,7 +57,7 @@ message(STATUS "$QT6_DIR                              : $ENV{QT6_DIR}")
 message(STATUS "$QT6_DIR_WASM                         : $ENV{QT6_DIR_WASM}")
 message(STATUS "QT6_DIR_CMAKE_PREFIX_PATH resolved to : ${QT6_DIR_CMAKE_PREFIX_PATH}")
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES} ${UI_HEADERS})
 
 target_link_libraries(
     ${PROJECT_NAME}
@@ -56,6 +66,7 @@ target_link_libraries(
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::PrintSupport
 )
 
 set (PLATFORM_DEPLOY_TARGET "$<TARGET_FILE:Arkanoid>")
