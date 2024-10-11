@@ -1,2 +1,4 @@
 # arkanoid
-arkanoid on qt. 
+arkanoid on qt.
+
+make for fun
