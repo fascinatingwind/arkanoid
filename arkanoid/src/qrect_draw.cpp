@@ -2,11 +2,11 @@
 
 #include "qcustomplot.h"
 
-void draw(const QRectF& rect, QCPItemPosition* topLeft, QCPPainter* painter)
+void draw(const QRectF& rect, QCPItemPosition* top_left, QCPPainter* painter)
 {
-    topLeft->setCoords(rect.topLeft());
-	topLeft->setType(QCPItemPosition::ptPlotCoords);
-	painter->translate(topLeft->pixelPosition());
+    top_left->setCoords(rect.topLeft());
+	top_left->setType(QCPItemPosition::ptPlotCoords);
+	painter->translate(top_left->pixelPosition());
 	painter->save();
     painter->drawRect(rect);
     painter->restore();

@@ -1,6 +1,6 @@
 #include "qrect_select_test.h"
 
-double selectTest(const QRectF& rect, QCustomPlot* parentPlot, const QPointF& pos, bool onlySelectable, QVariant* details)
+double selectTest(const QRectF& rect, QCustomPlot* parent_plot, const QPointF& pos, bool only_selectable, QVariant* details)
 {
     if(rect.contains(pos))
     {

@@ -19,6 +19,9 @@ set(HEADER_FILES ${HEADER_FILES}
     "include/graphic_object.h"
     "include/functions_select_test.h"
     "include/qrect_select_test.h"
+    "include/brick.h"
+    "include/brick_draw.h"
+    "include/brick_select_test.h"
 )
 
 set(SOURCE_FILES ${SOURCE_FILES}
@@ -26,6 +29,8 @@ set(SOURCE_FILES ${SOURCE_FILES}
     "src/main_window.cpp"
     "src/qrect_draw.cpp"
     "src/qrect_select_test.cpp"
+    "src/brick_draw.cpp"
+    "src/brick_select_test.cpp"
 )
 
 set(UI_FILES

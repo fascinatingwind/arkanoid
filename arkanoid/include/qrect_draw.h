@@ -7,6 +7,6 @@
 class QCPItemPosition;
 class QCPPainter;
 
-void draw(const QRectF& rect, QCPItemPosition* topLeft, QCPPainter* painter);
+void draw(const QRectF& rect, QCPItemPosition* top_left, QCPPainter* painter);
 
 #endif

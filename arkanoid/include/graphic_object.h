@@ -16,23 +16,23 @@ namespace Concept
 	{
 		struct AbstractItem : public QCPAbstractItem
 		{
-			AbstractItem(QCustomPlot* parentPlot) : QCPAbstractItem(parentPlot) {}
+			AbstractItem(QCustomPlot* parent_plot) : QCPAbstractItem(parent_plot) {}
 			virtual ~AbstractItem() = default;
 
-			virtual double selectTest(const QPointF& pos, bool onlySelectable, QVariant* details = 0) const = 0;
+			virtual double selectTest(const QPointF& pos, bool only_selectable, QVariant* details = 0) const = 0;
 			virtual void draw(QCPPainter* painter) = 0;
 		};
 
 		template <typename T>
 		struct Model final : public AbstractItem
 		{
-			T mData;
-			QCPItemPosition* mTopLeft;
+			T data;
+			QCPItemPosition* top_left;
 
 			Model(T x, QCustomPlot* plot)
 				: AbstractItem(plot)
-				, mData(std::move(x))
-				, mTopLeft(createPosition("topLeft"))
+				, data(std::move(x))
+				, top_left(createPosition("topLeft"))
 			{
 				setSelectable(false);
 			}
@@ -41,21 +41,21 @@ namespace Concept
 
 			void draw(QCPPainter* painter) override
 			{
-				::draw(mData, mTopLeft, painter);
+				::draw(data, top_left, painter);
 			}
 
-			double selectTest(const QPointF& pos, bool onlySelectable, QVariant* details = 0) const override
+			double selectTest(const QPointF& pos, bool only_selectable, QVariant* details = 0) const override
 			{
-				return ::selectTest(mData, parentPlot(), pos, onlySelectable, details);
+				return ::selectTest(data, parentPlot(), pos, only_selectable, details);
 			}
 
 		};
 
-		QPointer<AbstractItem> mObject;
+		QPointer<AbstractItem> object;
 
 	public:
 		template<typename T> GraphicObject(T x, QCustomPlot* plot)
-			: mObject(new Model<T>(std::move(x), plot))
+			: object(new Model<T>(std::move(x), plot))
 		{
 		}
 
@@ -64,13 +64,13 @@ namespace Concept
 
 		GraphicObject& operator=(GraphicObject x) noexcept
 		{
-			mObject = x.mObject;
+			object = x.object;
 			return *this;
 		}
 
 		friend void draw(const GraphicObject& obj, QCPPainter* painter)
 		{
-			obj.mObject->draw(painter);
+			obj.object->draw(painter);
 		}
 	};
 
